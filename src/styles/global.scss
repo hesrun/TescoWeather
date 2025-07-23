@@ -1,0 +1,42 @@
+@use 'reset.scss' as *;
+@use 'variables.scss' as *;
+@use 'mixins.scss' as *;
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Nunito', sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 1rem;
+    color: $main-color;
+}
+.app {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+    gap: 2rem;
+    background: url('../assets/bg.jpg');
+    object-fit: cover;
+    object-position: center;
+    padding: 2rem 4rem;
+}
+
+.forecast-title {
+    width: fit-content;
+    font-weight: 800;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    background: linear-gradient(90deg, #ffc954 0%, #ffffff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
