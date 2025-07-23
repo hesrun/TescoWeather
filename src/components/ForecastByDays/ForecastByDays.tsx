@@ -1,6 +1,8 @@
 import { WiDayCloudy } from 'react-icons/wi';
+import forecastStore from '../../store/forecastStore';
+import { observer } from 'mobx-react-lite';
 
-const ForecastByDays = () => {
+const ForecastByDays = observer(() => {
     return (
         <div className="forecast-by-day">
             <div className="forecast-title">Forecast by Days</div>
@@ -28,6 +30,6 @@ const ForecastByDays = () => {
             </ul>
         </div>
     );
-};
+});
 
 export default ForecastByDays;
