@@ -34,7 +34,6 @@ export interface ForecastDay {
     wind: {
         speed: number;
         deg: number;
-        gust: number;
     };
     dt_txt: string;
 }

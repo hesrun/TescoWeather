@@ -49,19 +49,20 @@
         }
     }
     &__drop {
-        //display: none;
         position: absolute;
         top: calc(100% + 1rem);
         width: 100%;
         padding: 1rem;
         background: rgba(white, 0.2);
         border-radius: 1rem;
+        backdrop-filter: blur(5px);
+        z-index: 1;
     }
     &__result {
         padding-right: 0.5rem;
         display: grid;
         gap: 0.5rem;
-        max-height: 16rem;
+        max-height: 17rem;
         overflow: auto;
         @include scrollbars(4px, 4px, white, transparent);
         &-button {
@@ -104,10 +105,12 @@
 }
 
 .forecast-day-button {
+    min-width: 6rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    gap: 0.5rem;
     padding: 1rem;
     background: rgba(white, 0.2);
     border-radius: 1rem;
@@ -119,10 +122,12 @@
         border-color: rgba(white, 0.5);
     }
     &__date {
-        font-size: 0.75rem;
+        font-weight: 500;
+    }
+    &__temp {
+        font-weight: 500;
     }
     &__icon {
-        margin: 1rem 0 0.5rem;
         display: flex;
         align-items: center;
         font-size: 3rem;
@@ -146,6 +151,16 @@
     }
     &__today {
         font-weight: 500;
+        text-transform: capitalize;
+    }
+    &__weather {
+        display: flex;
+        align-items: center;
+    }
+    &__icon {
+        display: flex;
+        align-items: center;
+        font-size: 5rem;
     }
     &__current-temp {
         font-size: 4rem;
@@ -161,23 +176,18 @@
     &__secondary {
         display: flex;
         align-items: center;
-        gap: 1rem;
+        gap: 2rem;
     }
-    &__icon {
-        padding-top: 1rem;
-        display: flex;
-        align-items: center;
-        font-size: 7rem;
-    }
+
     &__props {
         display: grid;
-        gap: 0.5rem;
         &-item {
+            gap: 0.5rem;
             display: flex;
             align-items: center;
         }
         &-icon {
-            font-size: 1.5rem;
+            font-size: 2rem;
         }
     }
 }
@@ -212,32 +222,107 @@
     &__tab-content {
         padding: 2rem 0;
     }
-    &__chart {
-        height: 18.75rem;
-        width: 100%;
-    }
-    &__list {
+}
+.forecast-by-hours-list {
+    display: flex;
+    align-items: center;
+    overflow: auto;
+    gap: 1rem;
+    @include scrollbars(8px, 4px, rgba(white, 0.1), transparent);
+    &__item {
+        min-width: 6rem;
+        border-radius: 1rem;
+        border: 1px rgba(white, 0.2) solid;
+        padding: 1rem;
+        text-align: center;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        overflow: auto;
         gap: 1rem;
-        @include scrollbars(8px, 4px, rgba(white, 0.1), transparent);
-        &-item {
-            padding: 1rem;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-        }
     }
     &__icon {
-        font-size: 1.5rem;
+        font-size: 2rem;
     }
     &__time {
         font-size: 0.875rem;
     }
     &__temp {
         font-size: 0.875rem;
+    }
+}
+
+.forecast-chart {
+    height: 18.75rem;
+    width: 100%;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                   compass                                  */
+/* -------------------------------------------------------------------------- */
+
+.compass {
+    --angle: 0deg;
+    width: 7rem;
+    height: 7rem;
+    border: 1px rgba(white, 0.2) solid;
+    border-radius: 50%;
+    position: relative;
+    &:after {
+        content: '';
+        position: absolute;
+        display: block;
+        width: 0.7rem;
+        height: 0.7rem;
+        border-radius: 50%;
+        background: white;
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+    }
+    &:before {
+        content: '';
+        position: absolute;
+        display: block;
+        width: 0.5rem;
+        height: 3.5rem;
+        background: rgb(255, 53, 53);
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        left: 50%;
+        bottom: 50%;
+        transform-origin: center bottom;
+        translate: -50% 0;
+        rotate: var(--angle);
+        transition: rotate 0.3s;
+    }
+    &__letter {
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 50%;
+        line-height: 1.5rem;
+        text-align: center;
+        font-size: 0.75rem;
+        background: rgba(white, 0.2);
+        position: absolute;
+        text-transform: uppercase;
+        font-weight: 500;
+        translate: -50% -50%;
+        font-weight: 900;
+        backdrop-filter: blur(2px);
+        &_n {
+            top: 0;
+            left: 50%;
+        }
+        &_e {
+            top: 50%;
+            left: 100%;
+        }
+        &_s {
+            top: 100%;
+            left: 50%;
+        }
+        &_w {
+            top: 50%;
+            left: 0;
+        }
     }
 }

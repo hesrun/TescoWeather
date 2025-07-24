@@ -4,7 +4,7 @@ import { GEO_BASE_URL, API_KEY } from '../../constants/constants';
 import type { City, Cords } from '../../types';
 import useSearch from '../../hooks/useSearch';
 import useDebounce from '../../hooks/useDebounce';
-import locationStore from '../../store/LocationStore';
+import locationStore from '../../store/locationStore';
 
 function makeUrl(city: string, limit: number = 10): string {
     return `${GEO_BASE_URL}?q=${city}&limit=${limit}&appid=${API_KEY}`;
@@ -21,6 +21,10 @@ const Search = () => {
         setSerchTerm('');
     };
 
+    const handleGetGeoLocation = () => {
+        locationStore.getLocation();
+    };
+
     return (
         <div className="search">
             <input
@@ -30,7 +34,11 @@ const Search = () => {
                 value={serchTerm}
                 onChange={(e) => setSerchTerm(e.target.value)}
             />
-            <button className="search__geo" title="Get location">
+            <button
+                className="search__geo"
+                title="Get location"
+                onClick={handleGetGeoLocation}
+            >
                 <LuLocateFixed />
             </button>
             {debouncedSerchTerm && (
