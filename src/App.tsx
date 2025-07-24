@@ -10,14 +10,21 @@ const App = observer(() => {
     useEffect(() => {
         forecastStore.getForecast({ lat: 50.217, lon: 12.9 });
     }, []);
+
+    const { forecast, displayDay, location, loading, error } = forecastStore;
+
     return (
         <>
             <Header />
-            <section className="center-content">
-                <ForecastToday />
-                <ForecastByHours />
-            </section>
-            {forecastStore.forecast && <ForecastByDays />}
+            {forecast && (
+                <section className="center-content">
+                    <ForecastToday data={forecast} displayDay={displayDay} />
+                    <ForecastByHours data={forecast} displayDay={displayDay} />
+                </section>
+            )}
+            {forecast && (
+                <ForecastByDays data={forecast} displayDay={displayDay} />
+            )}
         </>
     );
 });

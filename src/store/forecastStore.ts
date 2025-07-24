@@ -3,7 +3,7 @@ import { API_KEY, WEATHER_BASE_URL } from '../constants/constants';
 import type { Cords, Forecast, Location, ForecastGrouped } from '../types';
 
 function makeUrl(cords: Cords): string {
-    return `${WEATHER_BASE_URL}?lat=${cords.lat}&lon=${cords.lon}&appid=${API_KEY}`;
+    return `${WEATHER_BASE_URL}?lat=${cords.lat}&lon=${cords.lon}&appid=${API_KEY}&units=metric`;
 }
 
 class ForecastStore {
@@ -34,11 +34,14 @@ class ForecastStore {
                 groupByDay[date].push(item);
             });
 
-            console.log(this.forecast, this.location);
+            const firstDay = Object.keys(groupByDay)[0] ?? null;
+
+            console.log(groupByDay, data.city, firstDay);
 
             runInAction(() => {
                 this.location = data.city;
                 this.forecast = groupByDay;
+                this.displayDay = firstDay;
                 this.loading = false;
             });
         } catch (error: unknown) {
@@ -48,6 +51,10 @@ class ForecastStore {
                 this.loading = false;
             });
         }
+    }
+
+    changeDisplayDay(day: string) {
+        this.displayDay = day;
     }
 }
 

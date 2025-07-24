@@ -1,35 +1,45 @@
-import { WiDayCloudy } from 'react-icons/wi';
 import forecastStore from '../../store/forecastStore';
-import { observer } from 'mobx-react-lite';
+import type { DisplayDayProps } from '../../types';
+import formatDate from '../../utils/dateFormatter';
+import getTimeOfDate from '../../utils/getTimeOfDate';
+import WeatherIcon from '../WeatherIcon/WeatherIcon';
 
-const ForecastByDays = observer(() => {
+const ForecastByDays = ({ data, displayDay }: DisplayDayProps) => {
+    const handleChangeDay = (day: string) => {
+        forecastStore.changeDisplayDay(day);
+    };
+
     return (
         <div className="forecast-by-day">
             <div className="forecast-title">Forecast by Days</div>
             <ul className="forecast-by-day__list">
-                {Array(10)
-                    .fill('')
-                    .map((_, index) => (
-                        <li key={index} className="forecast-by-day__list-item">
+                {Object.entries(data).map(([date, dayIntervals]) => {
+                    const day = getTimeOfDate(dayIntervals);
+                    return (
+                        <li key={date} className={'forecast-by-day__list-item'}>
                             <button
-                                className={`forecast-day-button ${index === 0 ? `forecast-day-button_active` : ''}`}
+                                onClick={() => handleChangeDay(date)}
+                                className={`forecast-day-button ${date === displayDay ? `forecast-day-button_active` : ''}`}
                                 title="forecast day"
                             >
                                 <span className="forecast-day-button__date">
-                                    17 April 2025
+                                    {formatDate(date, 'dayMonth')}
                                 </span>
                                 <span className="forecast-day-button__icon">
-                                    <WiDayCloudy />
+                                    <WeatherIcon
+                                        name={day?.weather[0].main ?? 'Clear'}
+                                    />
                                 </span>
                                 <span className="forecast-day-button__temp">
-                                    26° C
+                                    {Math.round(day?.main.temp ?? 0)} °C
                                 </span>
                             </button>
                         </li>
-                    ))}
+                    );
+                })}
             </ul>
         </div>
     );
-});
+};
 
 export default ForecastByDays;

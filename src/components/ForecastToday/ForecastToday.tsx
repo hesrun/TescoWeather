@@ -1,37 +1,43 @@
-import { WiBarometer, WiDayCloudy, WiHumidity, WiWindy } from 'react-icons/wi';
+import { WiBarometer, WiHumidity, WiWindy } from 'react-icons/wi';
+import type { DisplayDayProps } from '../../types';
+import getTimeOfDate from '../../utils/getTimeOfDate';
+import formatDate from '../../utils/dateFormatter';
+import WeatherIcon from '../WeatherIcon/WeatherIcon';
 
-const ForecastToday = () => {
+const ForecastToday = ({ data, displayDay }: DisplayDayProps) => {
+    const day = displayDay ? getTimeOfDate(data[displayDay]) : null;
     return (
         <div className="forecast-today">
             <div className="forecast-title">Today's Weather forecast</div>
             <div className="forecast-today__info">
                 <div className="forecast-today__main">
                     <div className="forecast-today__today">
-                        Wednesday, July 12, 12:00
+                        {displayDay && formatDate(displayDay)}
                     </div>
                     <div className="forecast-today__current-temp">
-                        26<sup>°C</sup>
+                        {day && Math.round(day.main.temp)} <sup>°C</sup>
                     </div>
                     <div className="forecast-today__feels-temp">
-                        Feels 30<sup>°C</sup>
+                        Feels {day && Math.round(day.main.feels_like)}
+                        <sup>°C</sup>
                     </div>
                 </div>
                 <div className="forecast-today__secondary">
                     <div className="forecast-today__icon">
-                        <WiDayCloudy />
+                        <WeatherIcon name={day?.weather[0].main ?? 'Clear'} />
                     </div>
                     <div className="forecast-today__props">
                         <div className="forecast-today__props-item">
                             <WiBarometer className="forecast-today__props-icon" />
-                            Pressure: 29 inHg
+                            Pressure: {day && Math.round(day.main.pressure)} hPa
                         </div>
                         <div className="forecast-today__props-item">
                             <WiHumidity className="forecast-today__props-icon" />
-                            Humidity: 30 %
+                            Humidity: {day && Math.round(day.main.humidity)} %
                         </div>
                         <div className="forecast-today__props-item">
                             <WiWindy className="forecast-today__props-icon" />
-                            Wind: 18 km/h
+                            Wind: {day && Math.round(day.wind.speed)} M/S
                         </div>
                     </div>
                 </div>

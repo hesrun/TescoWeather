@@ -20,7 +20,7 @@ export interface WeatherDescr {
     main: string;
 }
 export interface ForecastDay {
-    dt: string;
+    dt: number;
     main: WeatherProps;
     weather: WeatherDescr[];
     wind: {
@@ -36,4 +36,9 @@ export interface ForecastGrouped {
 export interface Forecast {
     list: ForecastDay[];
     city: Location;
+}
+
+export interface DisplayDayProps {
+    data: ForecastGrouped;
+    displayDay: string | null;
 }
