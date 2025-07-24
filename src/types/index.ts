@@ -2,6 +2,14 @@ export interface Cords {
     lat: number;
     lon: number;
 }
+
+export interface City {
+    name: string;
+    lat: number;
+    lon: number;
+    country: string;
+    state: string;
+}
 export interface Location {
     name: string;
     country: string;
@@ -41,4 +49,9 @@ export interface Forecast {
 export interface DisplayDayProps {
     data: ForecastGrouped;
     displayDay: string | null;
+}
+
+export interface ChartData {
+    dt_txt: string;
+    temp: number;
 }

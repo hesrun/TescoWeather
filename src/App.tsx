@@ -5,11 +5,13 @@ import ForecastToday from './components/ForecastToday/ForecastToday';
 import Header from './components/Header/Header';
 import forecastStore from './store/forecastStore';
 import { observer } from 'mobx-react-lite';
+import locationStore from './store/LocationStore';
 
 const App = observer(() => {
+    const cords = locationStore.cords;
     useEffect(() => {
-        forecastStore.getForecast({ lat: 50.217, lon: 12.9 });
-    }, []);
+        if (cords) forecastStore.getForecast(cords);
+    }, [cords]);
 
     const { forecast, displayDay, location, loading, error } = forecastStore;
 
