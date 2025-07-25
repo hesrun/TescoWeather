@@ -2,13 +2,12 @@ import { LuChartLine, LuColumns2 } from 'react-icons/lu';
 import type { DisplayDayProps } from '../../types';
 
 import { useState } from 'react';
-import ForecastList from '../ForecastByDays/ForecastList';
-import ForecastChart from '../ForecastByDays/ForecastChart';
+import ForecastList from './ForecastList';
+import ForecastChart from './ForecastChart';
 
 const ForecastByHours = ({ data, displayDay }: DisplayDayProps) => {
     const [activeTab, setActiveTab] = useState('1');
     const day = displayDay ? data[displayDay] : null;
-
     return (
         <div className="forecast-by-hours">
             <div className="forecast-by-hours__tab-btns">

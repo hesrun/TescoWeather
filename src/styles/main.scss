@@ -11,6 +11,8 @@
     grid-template-columns: 1fr minmax(0, 31.25rem) 1fr;
     gap: 2rem;
     justify-content: center;
+    position: relative;
+    z-index: 1;
 }
 
 .location {
@@ -34,6 +36,15 @@
         @include placeholder {
             color: rgba(white, 0.5);
         }
+    }
+    &__loader {
+        top: 50%;
+        right: 3rem;
+        position: absolute;
+        width: 1rem;
+        height: 1rem;
+        border-width: 2px;
+        translate: 0 -50%;
     }
     &__geo {
         position: absolute;
@@ -78,14 +89,6 @@
             }
         }
     }
-    &__load {
-        padding: 1rem;
-        justify-content: center;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-    }
     &__no-results {
         text-align: center;
         color: $error-color;
@@ -96,12 +99,13 @@
 /*                               forecast-by-day                              */
 /* -------------------------------------------------------------------------- */
 
-.forecast-by-day {
-    &__list {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-    }
+.forecast-by-day-list {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    overflow: auto;
+    padding-bottom: 1rem;
+    @include scrollbars(8px, 4px, rgba(white, 0.1), transparent);
 }
 
 .forecast-day-button {
@@ -115,6 +119,7 @@
     background: rgba(white, 0.2);
     border-radius: 1rem;
     border: 1px transparent solid;
+    transition: border-color 0.3s;
     &_active {
         border-color: rgba(white, 0.5);
     }
@@ -228,6 +233,7 @@
     align-items: center;
     overflow: auto;
     gap: 1rem;
+    padding-bottom: 1rem;
     @include scrollbars(8px, 4px, rgba(white, 0.1), transparent);
     &__item {
         min-width: 6rem;
@@ -239,12 +245,15 @@
         flex-direction: column;
         align-items: center;
         gap: 1rem;
+        animation: 0.1s fadeIn both;
+        animation-delay: calc(var(--delay) * 0.05s);
     }
     &__icon {
         font-size: 2rem;
     }
     &__time {
         font-size: 0.875rem;
+        white-space: nowrap;
     }
     &__temp {
         font-size: 0.875rem;
@@ -254,6 +263,7 @@
 .forecast-chart {
     height: 18.75rem;
     width: 100%;
+    animation: 0.3s fadeIn both;
 }
 
 /* -------------------------------------------------------------------------- */

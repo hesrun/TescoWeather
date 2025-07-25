@@ -22,10 +22,11 @@ class ForecastStore {
         this.error = null;
         try {
             const response = await fetch(makeUrl(cords));
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             const data: Forecast = await response.json();
-
             const groupByDay: ForecastGrouped = {};
-
             data.list.forEach((item) => {
                 const date = item.dt_txt.split(' ')[0];
                 if (!groupByDay[date]) {
@@ -33,11 +34,7 @@ class ForecastStore {
                 }
                 groupByDay[date].push(item);
             });
-
             const firstDay = Object.keys(groupByDay)[0] ?? null;
-
-            console.log(groupByDay, data.city, firstDay);
-
             runInAction(() => {
                 this.location = data.city;
                 this.forecast = groupByDay;

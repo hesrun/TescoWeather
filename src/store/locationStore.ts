@@ -27,6 +27,7 @@ class LocationStore {
                     lat: position.coords.latitude,
                     lon: position.coords.longitude,
                 });
+                this.loading = false;
             },
             (error) => {
                 this.error = error.message || 'Failed to get location';

@@ -5,8 +5,12 @@ import WeatherIcon from '../WeatherIcon/WeatherIcon';
 const ForecastList = ({ day }: { day: ForecastDay[] }) => {
     return (
         <ul className="forecast-by-hours-list">
-            {day.map(({ dt_txt, main, weather }) => (
-                <li key={dt_txt} className="forecast-by-hours-list__item">
+            {day.map(({ dt_txt, main, weather }, index) => (
+                <li
+                    key={dt_txt}
+                    className="forecast-by-hours-list__item"
+                    style={{ '--delay': index } as React.CSSProperties}
+                >
                     <span className="forecast-by-hours-list__time">
                         {timeFormat(dt_txt)}
                     </span>

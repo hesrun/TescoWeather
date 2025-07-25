@@ -12,11 +12,11 @@ const ForecastByDays = ({ data, displayDay }: DisplayDayProps) => {
     return (
         <div className="forecast-by-day">
             <div className="forecast-title">Forecast by Days</div>
-            <ul className="forecast-by-day__list">
+            <ul className="forecast-by-day-list">
                 {Object.entries(data).map(([date, dayIntervals]) => {
                     const day = getTimeOfDate(dayIntervals);
                     return (
-                        <li key={date} className={'forecast-by-day__list-item'}>
+                        <li key={date} className={'forecast-by-day-list__item'}>
                             <button
                                 onClick={() => handleChangeDay(date)}
                                 className={`forecast-day-button ${date === displayDay ? `forecast-day-button_active` : ''}`}

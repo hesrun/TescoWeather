@@ -5,6 +5,7 @@ import {
     XAxis,
     YAxis,
     ResponsiveContainer,
+    Tooltip,
 } from 'recharts';
 import timeFormat from '../../utils/timeFormatter';
 import type { ChartData, ForecastDay } from '../../types';
@@ -45,6 +46,21 @@ const ForecastChart = ({ day }: { day: ForecastDay[] }) => {
                         stroke="#fff"
                         strokeWidth={1}
                         width="auto"
+                    />
+                    <Tooltip
+                        contentStyle={{
+                            backgroundColor: 'rgb(255,255,255,0.1)',
+                            border: '1px solid rgb(255,255,255,0.3)',
+                            borderRadius: 5,
+                        }}
+                        labelStyle={{
+                            color: '#fff',
+                            fontSize: 12,
+                        }}
+                        itemStyle={{
+                            color: '#fff',
+                            fontSize: 12,
+                        }}
                     />
                 </LineChart>
             </ResponsiveContainer>

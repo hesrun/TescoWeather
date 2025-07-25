@@ -30,10 +30,12 @@ const Search = () => {
             <input
                 className="search__input"
                 type="text"
-                placeholder="Search location"
+                placeholder="Search city..."
                 value={serchTerm}
                 onChange={(e) => setSerchTerm(e.target.value)}
             />
+            {loading && <div className="search__loader loader"></div>}
+
             <button
                 className="search__geo"
                 title="Get location"
@@ -43,12 +45,6 @@ const Search = () => {
             </button>
             {debouncedSerchTerm && (
                 <div className="search__drop">
-                    {loading && (
-                        <div className="search__load">
-                            Load cities
-                            <div className="loader loader_small"></div>
-                        </div>
-                    )}
                     {error && (
                         <div className="note note_error">
                             Search Error: {error}

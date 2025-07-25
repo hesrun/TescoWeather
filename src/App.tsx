@@ -5,19 +5,49 @@ import ForecastToday from './components/ForecastToday/ForecastToday';
 import Header from './components/Header/Header';
 import forecastStore from './store/forecastStore';
 import { observer } from 'mobx-react-lite';
-import locationStore from './store/LocationStore';
+import locationStore from './store/locationStore';
 
 const App = observer(() => {
-    const cords = locationStore.cords;
-    useEffect(() => {
-        if (cords) forecastStore.getForecast(cords);
-    }, [cords]);
+    const {
+        forecast,
+        displayDay,
+        loading: forecastLoading,
+        error: forecastError,
+    } = forecastStore;
 
-    const { forecast, displayDay, location, loading, error } = forecastStore;
+    const { loading: locationLoading, error: LocationError } = locationStore;
+
+    useEffect(() => {
+        locationStore.getLocation();
+    }, []);
+
+    useEffect(() => {
+        if (locationStore.cords) forecastStore.getForecast(locationStore.cords);
+    }, [locationStore.cords]);
 
     return (
         <>
             <Header />
+            {(forecastLoading || locationLoading) && (
+                <div className="app-loader">
+                    <div className="loader"></div>
+                </div>
+            )}
+            {(forecastError || LocationError) && (
+                <div className="app-error">
+                    {forecastError && (
+                        <div className="note note_error">{forecastError}</div>
+                    )}
+                    {LocationError && (
+                        <div className="note note_warning">
+                            {LocationError} <br />
+                            <b>
+                                Please use the search to find your city manually
+                            </b>
+                        </div>
+                    )}
+                </div>
+            )}
             {forecast && (
                 <section className="center-content">
                     <ForecastToday data={forecast} displayDay={displayDay} />
