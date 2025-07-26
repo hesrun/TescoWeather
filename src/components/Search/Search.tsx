@@ -56,7 +56,7 @@ const Search = () => {
                             <ul className="search__result">
                                 {results.map((city) => (
                                     <li
-                                        key={city}
+                                        key={`${city.lat}_${city.lon}`}
                                         className="search__result-item"
                                     >
                                         <button

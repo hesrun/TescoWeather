@@ -22,8 +22,6 @@ const App = observer(() => {
 
     useEffect(() => {
         if (forecast) {
-            console.log(forecast);
-
             locationStore.error = null;
         }
     }, [forecast]);

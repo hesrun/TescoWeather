@@ -11,10 +11,6 @@ import WiTornado from '../../assets/icons/wi-tornado.svg?react';
 import WiStrongWind from '../../assets/icons/wi-strong-wind.svg?react';
 import WiCloud from '../../assets/icons/wi-cloud.svg?react';
 
-type WeatherIconProps = {
-    name: string;
-    className?: string;
-};
 const MAIN_ICON_MAP: Record<string, React.FC<React.SVGProps<SVGSVGElement>>> = {
     Clear: WiDaySunny,
     Clouds: WiCloudy,
@@ -33,7 +29,7 @@ const MAIN_ICON_MAP: Record<string, React.FC<React.SVGProps<SVGSVGElement>>> = {
     Tornado: WiTornado,
 };
 
-const WeatherIcon = ({ name, className }: WeatherIconProps) => {
+const WeatherIcon = ({ name }: { name: string }) => {
     const IconComponent = MAIN_ICON_MAP[name] || WiCloud;
     return <IconComponent className="WIcon" />;
 };
