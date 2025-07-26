@@ -1,13 +1,15 @@
-import { LuChartLine, LuColumns2 } from 'react-icons/lu';
-import type { DisplayDayProps } from '../../types';
-
 import { useState } from 'react';
 import ForecastList from './ForecastList';
 import ForecastChart from './ForecastChart';
+import forecastStore from '../../store/forecastStore';
+import { observer } from 'mobx-react-lite';
 
-const ForecastByHours = ({ data, displayDay }: DisplayDayProps) => {
+const ForecastByHours = observer(() => {
     const [activeTab, setActiveTab] = useState('1');
-    const day = displayDay ? data[displayDay] : null;
+    const { forecast, displayDay } = forecastStore;
+
+    const day = displayDay && forecast ? forecast[displayDay] : null;
+
     return (
         <div className="forecast-by-hours">
             <div className="forecast-by-hours__tab-btns">
@@ -15,14 +17,12 @@ const ForecastByHours = ({ data, displayDay }: DisplayDayProps) => {
                     onClick={() => setActiveTab('1')}
                     className={`forecast-by-hours__tabs-btn ${activeTab === '1' ? 'forecast-by-hours__tabs-btn_active' : ''}`}
                 >
-                    <LuColumns2 />
                     List
                 </button>
                 <button
                     onClick={() => setActiveTab('2')}
                     className={`forecast-by-hours__tabs-btn ${activeTab === '2' ? 'forecast-by-hours__tabs-btn_active' : ''}`}
                 >
-                    <LuChartLine />
                     Chart
                 </button>
             </div>
@@ -38,6 +38,6 @@ const ForecastByHours = ({ data, displayDay }: DisplayDayProps) => {
             )}
         </div>
     );
-};
+});
 
 export default ForecastByHours;

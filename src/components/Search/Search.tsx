@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { LuLocateFixed } from 'react-icons/lu';
+import LuLocateFixed from '../../assets/icons/locate-fixed.svg?react';
 import { GEO_BASE_URL, API_KEY } from '../../constants/constants';
 import type { City, Cords } from '../../types';
 import useSearch from '../../hooks/useSearch';
@@ -56,7 +56,7 @@ const Search = () => {
                             <ul className="search__result">
                                 {results.map((city) => (
                                     <li
-                                        key={city.lat}
+                                        key={city}
                                         className="search__result-item"
                                     >
                                         <button

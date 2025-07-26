@@ -2,11 +2,8 @@ export interface Cords {
     lat: number;
     lon: number;
 }
-
-export interface City {
+export interface City extends Cords {
     name: string;
-    lat: number;
-    lon: number;
     country: string;
     state: string;
 }
@@ -44,12 +41,6 @@ export interface Forecast {
     list: ForecastDay[];
     city: Location;
 }
-
-export interface DisplayDayProps {
-    data: ForecastGrouped;
-    displayDay: string | null;
-}
-
 export interface ChartData {
     dt_txt: string;
     temp: number;

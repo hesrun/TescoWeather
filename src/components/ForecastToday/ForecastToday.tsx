@@ -1,12 +1,19 @@
-import { WiBarometer, WiHumidity, WiWindy } from 'react-icons/wi';
-import type { DisplayDayProps } from '../../types';
+import WiBarometer from '../../assets/icons/wi-barometer.svg?react';
+import WiHumidity from '../../assets/icons/wi-humidity.svg?react';
+import WiWindy from '../../assets/icons/wi-windy.svg?react';
 import getTimeOfDate from '../../utils/getTimeOfDate';
 import formatDate from '../../utils/dateFormatter';
 import WeatherIcon from '../WeatherIcon/WeatherIcon';
 import Compass from '../Compass/Compass';
+import { observer } from 'mobx-react-lite';
+import forecastStore from '../../store/forecastStore';
 
-const ForecastToday = ({ data, displayDay }: DisplayDayProps) => {
-    const day = displayDay ? getTimeOfDate(data[displayDay]) : null;
+const ForecastToday = observer(() => {
+    const { forecast, displayDay } = forecastStore;
+
+    const day =
+        displayDay && forecast ? getTimeOfDate(forecast[displayDay]) : null;
+
     return (
         <div className="forecast-today">
             <div className="forecast-title">Today's Weather forecast</div>
@@ -31,20 +38,26 @@ const ForecastToday = ({ data, displayDay }: DisplayDayProps) => {
                     </div>
                 </div>
                 <div className="forecast-today__secondary">
-                    <Compass angle={day && day.wind.deg} />
+                    <Compass angle={day ? day.wind.deg : 0} />
 
                     <div className="forecast-today__props">
                         <div className="forecast-today__props-item">
-                            <WiBarometer className="forecast-today__props-icon" />
+                            <div className="forecast-today__props-icon">
+                                <WiBarometer className="WIcon" />
+                            </div>
                             Pressure: {day && Math.round(day.main.pressure)} hPa
                         </div>
 
                         <div className="forecast-today__props-item">
-                            <WiWindy className="forecast-today__props-icon" />
+                            <div className="forecast-today__props-icon">
+                                <WiWindy className="WIcon" />
+                            </div>
                             Wind: {day && Math.round(day.wind.speed)} M/S
                         </div>
                         <div className="forecast-today__props-item">
-                            <WiHumidity className="forecast-today__props-icon" />
+                            <div className="forecast-today__props-icon">
+                                <WiHumidity className="WIcon" />
+                            </div>
                             Humidity: {day && Math.round(day.main.humidity)} %
                         </div>
                     </div>
@@ -52,6 +65,6 @@ const ForecastToday = ({ data, displayDay }: DisplayDayProps) => {
             </div>
         </div>
     );
-};
+});
 
 export default ForecastToday;

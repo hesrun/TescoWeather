@@ -1,4 +1,4 @@
-const Compass = ({ angle }) => {
+const Compass = ({ angle }: { angle: number }) => {
     return (
         <div
             className="compass"

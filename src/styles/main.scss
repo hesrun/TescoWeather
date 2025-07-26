@@ -13,12 +13,23 @@
     justify-content: center;
     position: relative;
     z-index: 1;
+    @include lg {
+        grid-template-columns: auto 1fr;
+    }
+    @include sm {
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 1rem;
+    }
 }
 
 .location {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    @include sm {
+        margin: auto;
+    }
     &__icon {
         font-size: 1.5rem;
     }
@@ -55,6 +66,7 @@
         height: 100%;
         padding: 0 1rem;
         font-size: 1.25rem;
+        border-radius: 50%;
         @include hover {
             opacity: 0.5;
         }
@@ -122,6 +134,8 @@
     transition: border-color 0.3s;
     &_active {
         border-color: rgba(white, 0.5);
+        color: #000064;
+        background: white;
     }
     @include hover {
         border-color: rgba(white, 0.5);
@@ -146,13 +160,21 @@
 .forecast-today {
     margin-bottom: 2rem;
     &__info {
+        gap: 2rem;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        flex-wrap: wrap;
+        @include sm {
+            justify-content: center;
+        }
     }
     &__main {
         display: grid;
         gap: 1rem;
+        @include sm {
+            text-align: center;
+        }
     }
     &__today {
         font-weight: 500;
@@ -209,11 +231,11 @@
         border: 1px rgba(white, 0.2) solid;
         padding: 0.5rem 1rem;
         border-radius: 0.5rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-size: 0.75rem;
         transition: all 0.3s;
+        @include sm {
+            flex: 1 1 auto;
+            justify-content: center;
+        }
         svg {
             font-size: 1.125rem;
         }
@@ -225,7 +247,7 @@
         }
     }
     &__tab-content {
-        padding: 2rem 0;
+        padding: 2rem 0 0;
     }
 }
 .forecast-by-hours-list {
@@ -264,6 +286,9 @@
     height: 18.75rem;
     width: 100%;
     animation: 0.3s fadeIn both;
+    @include sm {
+        height: 12.5rem;
+    }
 }
 
 /* -------------------------------------------------------------------------- */
@@ -302,7 +327,7 @@
         transform-origin: center bottom;
         translate: -50% 0;
         rotate: var(--angle);
-        transition: rotate 0.3s;
+        transition: rotate 1s;
     }
     &__letter {
         width: 1.5rem;

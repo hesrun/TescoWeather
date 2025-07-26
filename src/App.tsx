@@ -10,7 +10,6 @@ import locationStore from './store/locationStore';
 const App = observer(() => {
     const {
         forecast,
-        displayDay,
         loading: forecastLoading,
         error: forecastError,
     } = forecastStore;
@@ -22,8 +21,20 @@ const App = observer(() => {
     }, []);
 
     useEffect(() => {
-        if (locationStore.cords) forecastStore.getForecast(locationStore.cords);
-    }, [locationStore.cords]);
+        if (forecast) {
+            console.log(forecast);
+
+            locationStore.error = null;
+        }
+    }, [forecast]);
+
+    const { lat, lon } = locationStore.cords ?? {};
+
+    useEffect(() => {
+        if (lat !== undefined && lon !== undefined) {
+            forecastStore.getForecast({ lat, lon });
+        }
+    }, [lat, lon]);
 
     return (
         <>
@@ -40,23 +51,21 @@ const App = observer(() => {
                     )}
                     {LocationError && (
                         <div className="note note_warning">
-                            {LocationError} <br />
-                            <b>
-                                Please use the search to find your city manually
-                            </b>
+                            <b>{LocationError}</b> <br />
+                            Please enable location services in your browser or
+                            <br />
+                            use the search to find your city manually.
                         </div>
                     )}
                 </div>
             )}
             {forecast && (
                 <section className="center-content">
-                    <ForecastToday data={forecast} displayDay={displayDay} />
-                    <ForecastByHours data={forecast} displayDay={displayDay} />
+                    <ForecastToday />
+                    <ForecastByHours />
                 </section>
             )}
-            {forecast && (
-                <ForecastByDays data={forecast} displayDay={displayDay} />
-            )}
+            {forecast && <ForecastByDays />}
         </>
     );
 });

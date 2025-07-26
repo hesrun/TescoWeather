@@ -1,5 +1,5 @@
+import LuMapPin from '../../assets/icons/map-pin.svg?react';
 import { observer } from 'mobx-react-lite';
-import { LuMapPin } from 'react-icons/lu';
 import forecastStore from '../../store/forecastStore';
 
 const Location = observer(() => {
@@ -7,7 +7,9 @@ const Location = observer(() => {
         <div className="location">
             {forecastStore.location && (
                 <>
-                    <LuMapPin className="location__icon" />
+                    <div className="location__icon">
+                        <LuMapPin />
+                    </div>
                     <span className="location__name">
                         {forecastStore.location.name},{' '}
                         {forecastStore.location.country}
